@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Đăng ký tài khoản</h2>
+    <form th:action="@{/register}" method="post" th:object="${user}">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" th:field="*{username}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" th:field="*{password}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" th:field="*{email}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Full name</label>
+            <input type="text" th:field="*{fullName}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Phone</label>
+            <input type="text" th:field="*{phone}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Address</label>
+            <input type="text" th:field="*{address}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="/login">Đã có tài khoản? Đăng nhập</a>
+    </div>
+</div>
+</body>
+</html>
