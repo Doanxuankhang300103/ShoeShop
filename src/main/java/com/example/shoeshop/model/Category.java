@@ -1,30 +1,57 @@
 package com.example.shoeshop.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "Categories")
+@Table(name = "categories")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id") // <-- trùng với tên cột trong SQL Server
+    @Column(name = "category_id")
     private Long id;
 
-
     @Column(name = "category_name", nullable = false)
-    private String categoryName;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
 
-    // Getters & Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @OneToMany(mappedBy = "parent")
+    private List<Category> subCategories;
 
-    public String getCategoryName() { return categoryName; }
-    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
 
-    public Category getParent() { return parent; }
-    public void setParent(Category parent) { this.parent = parent; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
+    }
+
+    public List<Category> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(List<Category> subCategories) {
+        this.subCategories = subCategories;
+    }
 }

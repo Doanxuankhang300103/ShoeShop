@@ -1,44 +1,153 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - KShopper</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .register-card {
+            max-width: 500px;
+            width: 100%;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .register-card h2 {
+            color: #e73c7e;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-control {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding-left: 2.5rem;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #23a6d5;
+            box-shadow: 0 0 8px rgba(35, 166, 213, 0.5);
+            background-color: #f8f9fa;
+        }
+        .input-group-text {
+            background-color: transparent;
+            border: none;
+            color: #e73c7e;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #e73c7e, #23a6d5);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #d32f6b, #1e8cb8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .login-link a {
+            color: #23a6d5;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            color: #1e8cb8;
+            text-decoration: underline;
+        }
+        .form-label {
+            color: #333;
+            font-weight: 500;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">Đăng ký tài khoản</h2>
+<div class="register-card">
+    <h2>Join KShopper</h2>
+    <!-- Form đăng ký -->
     <form th:action="@{/register}" method="post" th:object="${user}">
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" th:field="*{username}" class="form-control" required>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <input type="text" id="username" th:field="*{username}" class="form-control" required autofocus>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" th:field="*{password}" class="form-control" required>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                <input type="password" id="password" th:field="*{password}" class="form-control" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" th:field="*{email}" class="form-control" required>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                <input type="email" id="email" th:field="*{email}" class="form-control" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Full name</label>
-            <input type="text" th:field="*{fullName}" class="form-control">
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                <input type="text" id="fullName" th:field="*{fullName}" class="form-control">
+            </div>
         </div>
-        <div class="form-group">
-            <label>Phone</label>
-            <input type="text" th:field="*{phone}" class="form-control">
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                <input type="text" id="phone" th:field="*{phone}" class="form-control">
+            </div>
         </div>
-        <div class="form-group">
-            <label>Address</label>
-            <input type="text" th:field="*{address}" class="form-control">
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                <input type="text" id="address" th:field="*{address}" class="form-control">
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Register</button>
+        <button type="submit" class="btn btn-primary w-100">Register Now</button>
     </form>
-
-    <div class="text-center mt-3">
-        <a href="/login">Đã có tài khoản? Đăng nhập</a>
+    <div class="login-link">
+        <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
     </div>
 </div>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Font Awesome JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
 </html>
