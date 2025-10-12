@@ -8,13 +8,17 @@ import java.util.List;
 
 @Service
 public class CategoryService {
+
     private final CategoryRepository categoryRepository;
 
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
+        System.out.println("CategoryService initialized");
     }
 
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findAll();
+        System.out.println("Loaded categories: " + categories.size());
+        return categories;
     }
 }

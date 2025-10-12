@@ -15,43 +15,40 @@ public class Category {
     @Column(name = "category_name", nullable = false)
     private String name;
 
-    @ManyToOne
+    // Parent category (self-referencing)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
 
-    @OneToMany(mappedBy = "parent")
-    private List<Category> subCategories;
+    // Child categories
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<Category> children;
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    // One category has many products
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> products;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // Getters & Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public Category getParent() {
-        return parent;
-    }
+    public Category getParent() { return parent; }
+    public void setParent(Category parent) { this.parent = parent; }
 
-    public void setParent(Category parent) {
-        this.parent = parent;
-    }
+    public List<Category> getChildren() { return children; }
+    public void setChildren(List<Category> children) { this.children = children; }
 
-    public List<Category> getSubCategories() {
-        return subCategories;
-    }
+    public List<Product> getProducts() { return products; }
+    public void setProducts(List<Product> products) { this.products = products; }
 
-    public void setSubCategories(List<Category> subCategories) {
-        this.subCategories = subCategories;
-    }
+//    @Transient
+//    public int getProductCount() {
+//        return (products != null) ? products.size() : 0;
+//    }
+
+
 }

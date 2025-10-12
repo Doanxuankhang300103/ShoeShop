@@ -121,8 +121,8 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="/shop" class="nav-item nav-link">Shop</a>
                             <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -160,26 +160,29 @@
                 </nav>
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
+
                         <div class="carousel-item active" style="height: 410px;">
-                            <img class="img-fluid" src="img/carousel-1.jpg" alt="Image">
+                            <img class="img-fluid" src="https://example.com/images/giay-the-thao-moi.jpg" alt="Bộ sưu tập giày mới">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">Giảm 10% cho Đơn hàng đầu tiên</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Bộ Sưu Tập Giày Mới Nhất</h3>
+                                    <a href="/shop/new-arrivals" class="btn btn-light py-2 px-3">Mua Ngay</a>
                                 </div>
                             </div>
                         </div>
+
                         <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="img/carousel-2.jpg" alt="Image">
+                            <img class="img-fluid" src="https://intphcm.com/data/upload/poster-giay-dep-mat.jpg" alt="Giày Thể Thao Cao Cấp">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
-                                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">Thời Trang & Êm Ái</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Giày Thể Thao Cho Mọi Hoạt Động</h3>
+                                    <a href="/shop/sneakers" class="btn btn-light py-2 px-3">Xem Chi Tiết</a>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
                         <div class="btn btn-dark" style="width: 45px; height: 45px;">
@@ -191,8 +194,7 @@
                             <span class="carousel-control-next-icon mb-n2"></span>
                         </div>
                     </a>
-                </div>
-            </div>
+                </div>            </div>
         </div>
     </div>
     <!-- Navbar End -->
@@ -236,11 +238,11 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <div class="cat-item" th:each="cat : ${categories}">
-                        <p class="text-right" th:text="${cat.productCount} + ' Products'">15 Products</p>
+                        <span th:text="${#lists.size(cat.products)}"></span>
                         <a th:href="@{'/shop?category=' + ${cat.id}}" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" th:src="${cat.imageUrl}" alt="">
+<!--                            <img class="img-fluid" th:src="${cat.imageUrl}" alt="">-->
                         </a>
-                        <h5 class="font-weight-semi-bold m-0" th:text="${cat.categoryName}">Men's dresses</h5>
+                        <h5 class="font-weight-semi-bold m-0" th:text="${cat.name}">Men's dresses</h5>
                     </div>
 
                 </div>
@@ -282,26 +284,31 @@
     <!-- Products Start -->
     <div class="container-fluid pt-5">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-            <span class="bg-secondary pr-3">Trandy Products</span>
+            <span class="bg-secondary pr-3">Trendy Products</span>
         </h2>
         <div class="row px-xl-5">
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1" th:each="product : ${products}">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" th:src="${product.imageUrl ?: '/images/default.jpg'}" alt="">
+                        <img class="img-fluid w-100"
+                             th:src="${#strings.isEmpty(product.imageUrl) ? '/images/default.jpg' : product.imageUrl}"
+                             alt="">
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}">Product Name</a>
+                        <a class="h6 text-decoration-none text-truncate"
+                           th:href="@{/product/{id}(id=${product.id})}"
+                           th:text="${product.name}">Product Name</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5 th:text="${product.price}">$123.00</h5>
+                            <h5 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}">$123.00</h5>
                         </div>
                         <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
-                        <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id=${product.id})}"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-outline-dark btn-square"
+                           th:href="@{/product/{id}(id=${product.id})}"><i class="fa fa-eye"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>    <!-- Products End -->
+    </div>
 
 
     <!-- Subscribe Start -->

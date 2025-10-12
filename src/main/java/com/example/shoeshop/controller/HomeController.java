@@ -1,9 +1,9 @@
 package com.example.shoeshop.controller;
 
-import com.example.shoeshop.model.Category;
 import com.example.shoeshop.model.Product;
-import com.example.shoeshop.service.CategoryService;
+import com.example.shoeshop.model.Category;
 import com.example.shoeshop.service.ProductService;
+import com.example.shoeshop.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +25,10 @@ public class HomeController {
     public String index(Model model) {
         List<Product> products = productService.getAllProducts();
         List<Category> categories = categoryService.getAllCategories();
+        System.out.println("Loaded products: " + products.size());
         model.addAttribute("products", products);
         model.addAttribute("categories", categories);
-        return "index";
+
+        return "index"; // -> resources/templates/index.html
     }
 }
