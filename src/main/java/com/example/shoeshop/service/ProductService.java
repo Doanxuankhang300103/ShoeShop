@@ -80,4 +80,12 @@ public class ProductService {
         return products;
     }
 
+    public List<Product> getProductsByCategoryId(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
+
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
 }

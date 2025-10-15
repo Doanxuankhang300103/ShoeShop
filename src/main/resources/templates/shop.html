@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -133,7 +133,7 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link">Home</a>
                             <a href="/shop" class="nav-item nav-link active">Shop</a>
-                            <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <a th:href="@{/shop/detail/{id}(id=1)}" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
@@ -183,11 +183,11 @@
                         <h5 class="font-weight-semi-bold mb-4">Lọc theo giá</h5>
                         <select class="form-control" name="price">
                             <option value="">Tất cả</option>
-                            <option value="1">0 - 100</option>
-                            <option value="2">100 - 200</option>
-                            <option value="3">200 - 300</option>
-                            <option value="4">300 - 400</option>
-                            <option value="5">400 - 500</option>
+                            <option value="1">Dưới 500,000 VND</option>
+                            <option value="2">500,000 - 1,000,000 VND</option>
+                            <option value="3">1,000,000 - 2,000,000 VND</option>
+                            <option value="4">2,000,000 - 3,000,000 VND</option>
+                            <option value="5">Trên 3,000,000 VND</option>
                         </select>
                     </div>
                     <div class="mb-4">
@@ -216,6 +216,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title" th:text="${product.name}"></h5>
                                 <p class="card-text">Giá: <span th:text="${product.price}"></span> VND</p>
+                                <a th:href="@{/shop/detail/{id}(id=${product.id})}" class="btn btn-primary">Xem chi tiết</a>
                             </div>
                         </div>
                     </div>

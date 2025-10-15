@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img th:src="${product.imageUrl}" class="img-fluid rounded shadow" alt="Product Image" style="max-height:400px;object-fit:cover;">
+            </div>
+            <div class="col-md-6">
+                <h2 class="font-weight-bold mb-3" th:text="${product.name}"></h2>
+                <h4 class="text-primary mb-3">Giá: <span th:text="${product.price}"></span> VND</h4>
+                <p class="mb-3" th:text="${product.description}"></p>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item" th:if="${product.color != null}">Màu sắc: <span th:text="${product.color}"></span></li>
+                    <li class="list-group-item" th:if="${product.size != null}">Kích thước: <span th:text="${product.size}"></span></li>
+                    <li class="list-group-item" th:if="${product.brand != null}">Thương hiệu: <span th:text="${product.brand.name}"></span></li>
+                    <li class="list-group-item">Số lượng còn: <span th:text="${product.stock}"></span></li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/shop" class="btn btn-secondary mr-2">Quay lại Shop</a>
+                    <button class="btn btn-success">Thêm vào giỏ hàng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
